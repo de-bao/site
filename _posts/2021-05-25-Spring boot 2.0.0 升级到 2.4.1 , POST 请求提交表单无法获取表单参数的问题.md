@@ -21,7 +21,7 @@ issueId: 2021-05-25 Spring Boot2.0.0升级到2.4.1POST表单参数的问题
 
 请求样例：
 
-![Alt text](/assets/images/springboot/1621913220468.png)
+![Alt text]({{ site.baseurl }}/assets/images/springboot/1621913220468.png)
 
 请求处理器获取的代码：
 ```java

@@ -32,22 +32,22 @@ issueId: 2018-2-26 Convert Spring+ibaits to Spring+mybatis
 
 ### 创建空白的Maven Web项目
 1. 创建空白的Maven项目   
-![Alt text](/assets/images/java/1519462957419.png)
+![Alt text]({{ site.baseurl }}/assets/images/java/1519462957419.png)
    
-![Alt text](/assets/images/java/1519462981895.png)
+![Alt text]({{ site.baseurl }}/assets/images/java/1519462981895.png)
    
-![Alt text](/assets/images/java/1519463217495.png)
+![Alt text]({{ site.baseurl }}/assets/images/java/1519463217495.png)
    
 
 2. 修改项目为Web项目   
-![Alt text](/assets/images/java/1519463892347.png)
+![Alt text]({{ site.baseurl }}/assets/images/java/1519463892347.png)
    
-![Alt text](/assets/images/java/1519463924361.png)
+![Alt text]({{ site.baseurl }}/assets/images/java/1519463924361.png)
    
-![Alt text](/assets/images/java/1519464153091.png)
+![Alt text]({{ site.baseurl }}/assets/images/java/1519464153091.png)
    
 3. 在构建路径上增加Web服务器Library   
-![Alt text](/assets/images/java/1519614780677.png)
+![Alt text]({{ site.baseurl }}/assets/images/java/1519614780677.png)
    
 
 

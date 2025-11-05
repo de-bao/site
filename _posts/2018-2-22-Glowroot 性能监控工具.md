@@ -20,7 +20,7 @@ Glowroot 是一个快速，干净和简单的 APM 工具。它可以跟踪捕获
 ## 使用
 
 Glowroot  是通过java Agent方式嵌入到Java 进程中，即通过添加`-javaagent:path/glowroot.jar`到JVM启动参数中完成嵌入。在启动成功之后会在` glowroot.jar`所在的目录产生如下内容，之后可以通过访问`http://localhost:4000`进入。
-![Alt text](/assets/images/glowroot/1518140796960.png)
+![Alt text]({{ site.baseurl }}/assets/images/glowroot/1518140796960.png)
 
 
 ### 下载zip包
@@ -46,9 +46,9 @@ JBoss Windows Service 方式启动调用的是`%JBOSS_HOME%\bin`目录下的`ser
 
 #### Eclipse等IDE中启动
 在JBOSS的Launch configuration配置里，增加`-javaagent:path/glowroot.jar` JVM启动参数。
-![Alt text](/assets/images/glowroot/1518141370388.png)
+![Alt text]({{ site.baseurl }}/assets/images/glowroot/1518141370388.png)
 
-![Alt text](/assets/images/glowroot/1518141354143.png)
+![Alt text]({{ site.baseurl }}/assets/images/glowroot/1518141354143.png)
 
 
 ## Glowroot  参数调整
@@ -56,15 +56,15 @@ JBoss Windows Service 方式启动调用的是`%JBOSS_HOME%\bin`目录下的`ser
 
 ### 增加登录验证
 Glowroot   默认是不需要登录，直接访问`http://localhost:4000`就可以使用，如果需要开启登录验证，则需要先增加管理员用户，并删除`Anonymous`用户。操作如下：
-![Alt text](/assets/images/glowroot/1518142128758.png)
+![Alt text]({{ site.baseurl }}/assets/images/glowroot/1518142128758.png)
 删除`Anonymous`,并增加管理员，最终效果如下：
-![Alt text](/assets/images/glowroot/1518142198245.png)
+![Alt text]({{ site.baseurl }}/assets/images/glowroot/1518142198245.png)
 重新访问后提示登录：
-![Alt text](/assets/images/glowroot/1518141831943.png)
+![Alt text]({{ site.baseurl }}/assets/images/glowroot/1518141831943.png)
 
 ### 修改默认端口和访问URL
 Glowroot   的默认端口是`4000`,同样可以修改，注意不要和已有的端口冲突，否则无法访问
-![Alt text](/assets/images/glowroot/1518142737804.png)
+![Alt text]({{ site.baseurl }}/assets/images/glowroot/1518142737804.png)
 
 
 
