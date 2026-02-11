@@ -15,6 +15,7 @@ const PublicationItem = ({ publication }) => {
             loop
             muted
             src={publication.video}
+            poster="https://tairanhe.com/images/loading-icon.gif"
             className="w-full rounded-2xl"
           />
         )}
