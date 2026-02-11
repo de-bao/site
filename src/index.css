@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans text-base font-normal text-gray-900;
+  }
+  
+  a {
+    @apply text-primary no-underline;
+  }
+  
+  a:hover, a:focus {
+    @apply text-secondary;
+  }
+}
