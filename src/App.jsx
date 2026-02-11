@@ -2,7 +2,9 @@ import { useState } from 'react'
 import Header from './components/Header'
 import News from './components/News'
 import Publications from './components/Publications'
-import Research from './components/Research'
+import Projects from './components/Projects'
+import Podcast from './components/Podcast'
+import ReviewerService from './components/ReviewerService'
 
 function App() {
   return (
@@ -11,7 +13,9 @@ function App() {
         <Header />
         <News />
         <Publications />
-        <Research />
+        <Projects />
+        <Podcast />
+        <ReviewerService />
       </div>
     </div>
   )
