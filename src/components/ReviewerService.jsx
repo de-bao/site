@@ -10,9 +10,9 @@ const ReviewerService = () => {
     "International Conference on Learning Representations (ICLR), 2024, 2025",
     "IEEE Conference on Decision and Control (CDC), 2023",
     "Conference on Neural Information Processing Systems (NeurIPS), 2023, 2024",
-    "American Control Conference (ACC), 2023",
-    "Learning for Dynamics and Control Conference (L4DC), 2023",
-    "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2023",
+    "Learning for Dynamics & Control Conference (L4DC) 2023",
+    "AAAI Conference on Artificial Intelligence (AAAI) 2023, 2024, 2025",
+    "Conference on Robot Learning (CoRL) 2022, 2023, 2024",
   ]
 
   return (
