@@ -10,7 +10,7 @@ const Header = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-1">
           <img 
-            src="./index_files/tairan&h1_crop.JPG" 
+            src="/index_files/tairan&h1_crop.JPG" 
             alt="Profile" 
             className="w-full rounded-2xl mb-4"
           />
