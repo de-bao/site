@@ -39,7 +39,21 @@ const PublicationItem = ({ publication }) => {
           </a>
         </h3>
         <p className="mb-2 text-sm">{publication.authors}</p>
-        <p className="mb-2 text-sm font-semibold">{publication.year}</p>
+        <div className="mb-2 text-sm">
+          {publication.year && <span className="font-semibold">{publication.year}</span>}
+          {publication.conference && (
+            <>
+              {publication.year && ' '}
+              <span>{publication.conference}</span>
+            </>
+          )}
+          {publication.special && (
+            <>
+              {' '}
+              <span className="text-red-600 font-semibold">({publication.special})</span>
+            </>
+          )}
+        </div>
         <div className="flex flex-wrap gap-2 text-sm mb-2">
           {publication.webpage && (
             <a href={publication.webpage} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-secondary">webpage</a>
