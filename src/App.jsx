@@ -309,6 +309,120 @@ function App() {
                     maxWidth: '800px',
                     margin: '0 auto'
                   }}>
+                    {/* 输入工具栏 */}
+                    <div className="style__text-area__start___B3hfY" style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      marginBottom: '8px',
+                      paddingLeft: '4px'
+                    }}>
+                      {/* 深度思考按钮 */}
+                      <div className="ThinkSelector_iconContainer__5HMzp" style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        padding: '4px 8px',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        transition: 'background-color 0.2s'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f3f4f6'}
+                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                      >
+                        <div className="ThinkSelector_iconButton__ikmxD" style={{
+                          width: '16px',
+                          height: '16px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}>
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.74121 3.17676C9.89642 1.88502 11.9715 1.59281 13.001 2.62207L13.1289 2.76465C14.002 3.83505 13.6794 5.82083 12.4443 7.88086C13.7358 10.0358 14.0282 12.1093 12.999 13.1387L12.8574 13.2676C11.7872 14.1405 9.8019 13.8175 7.74219 12.583C5.68184 13.8185 3.69561 14.1417 2.625 13.2686L2.4834 13.1396C1.45403 12.1102 1.74622 10.0361 3.03809 7.88086C1.80268 5.82062 1.48033 3.83423 2.35352 2.76367L2.48145 2.62207C3.51103 1.59274 5.58588 1.88478 7.74121 3.17676ZM3.78906 8.99121C3.5844 9.38197 3.42119 9.76094 3.30176 10.1191C2.87109 11.4111 3.10053 12.0594 3.33203 12.291C3.56382 12.5224 4.21138 12.7508 5.50293 12.3203C5.86105 12.2009 6.23914 12.0365 6.62988 11.832C6.11465 11.4433 5.6037 11.0011 5.11133 10.5088C4.61932 10.0168 4.17756 9.50607 3.78906 8.99121ZM11.6924 8.99121C11.3038 9.50628 10.8623 10.0176 10.3701 10.5098C9.8781 11.0017 9.36738 11.4436 8.85254 11.832C9.2432 12.0365 9.62148 12.2 9.97949 12.3193C11.2712 12.7499 11.9187 12.5215 12.1504 12.29C12.3818 12.0584 12.6111 11.4106 12.1807 10.1191C12.0613 9.76095 11.8971 9.382 11.6924 8.99121ZM7.74121 4.60449C7.14654 5.0171 6.54395 5.51762 5.96094 6.10059C5.37795 6.68359 4.87738 7.28626 4.46484 7.88086C4.87711 8.47532 5.37627 9.07839 5.95898 9.66113C6.54239 10.2445 7.146 10.7446 7.74121 11.1572C8.33603 10.7448 8.93937 10.2452 9.52246 9.66211C10.1055 9.07907 10.6051 8.4757 11.0176 7.88086C10.6049 7.28598 10.1047 6.68284 9.52148 6.09961C8.93871 5.5169 8.33558 5.01691 7.74121 4.60449ZM5.50195 3.44043C4.21021 3.00992 3.56173 3.23924 3.33008 3.4707C3.09874 3.70267 2.87149 4.35064 3.30176 5.6416C3.4212 5.99984 3.58447 6.37866 3.78906 6.76953C4.17759 6.25456 4.62021 5.74407 5.1123 5.25195C5.60467 4.75963 6.11561 4.31738 6.63086 3.92871C6.23967 3.72379 5.86052 3.55995 5.50195 3.44043ZM12.1523 3.4707C11.9207 3.23922 11.2723 3.01086 9.98047 3.44141C9.62227 3.5608 9.24333 3.72405 8.85254 3.92871C9.36727 4.31709 9.87822 4.75913 10.3701 5.25098C10.8623 5.74319 11.3038 6.25444 11.6924 6.76953C11.897 6.37858 12.0612 5.99986 12.1807 5.6416C12.611 4.35025 12.3838 3.70236 12.1523 3.4707Z" fill="currentColor" fillOpacity="0.9"></path>
+                          </svg>
+                        </div>
+                        <span style={{ fontSize: '14px', color: 'rgba(0, 0, 0, 0.9)' }}>深度思考</span>
+                      </div>
+
+                      {/* 自动搜索按钮 */}
+                      <div className="index_v2_selectArrowButtonWrapper__ggyIU" style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        padding: '4px 8px',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        transition: 'background-color 0.2s',
+                        backgroundColor: '#e5e7eb'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#d1d5db'}
+                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#e5e7eb'}
+                      >
+                        <div className="index_v2_mainSection__SNIvs" style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '4px'
+                        }}>
+                          <div className="index_v2_contentIcon__7r1jf">
+                            <div className="index_v2_stillIcon__YzNea">
+                              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fillRule="evenodd" clipRule="evenodd" d="M8.0019 13.1391C10.8399 13.1391 13.1405 10.8384 13.1405 8.00044C13.1405 5.16245 10.8399 2.86182 8.0019 2.86182C5.16392 2.86182 2.86328 5.16245 2.86328 8.00044C2.86328 10.8384 5.16392 13.1391 8.0019 13.1391Z" stroke="currentColor" strokeLinecap="round"></path>
+                                <path fillRule="evenodd" clipRule="evenodd" d="M8.00076 13.1391C9.13596 13.1391 10.0562 10.8384 10.0562 8.00044C10.0562 5.16245 9.13596 2.86182 8.00076 2.86182C6.86556 2.86182 5.94531 5.16245 5.94531 8.00044C5.94531 10.8384 6.86556 13.1391 8.00076 13.1391Z" stroke="currentColor" strokeLinecap="round"></path>
+                                <path d="M1.38478 6.22949C1.13962 6.75405 1 7.35789 1 8.0005C1 8.6431 1.13962 9.24694 1.38478 9.7715" stroke="currentColor" strokeLinecap="round"></path>
+                                <path d="M14.6152 6.22949C14.8604 6.75405 15 7.35789 15 8.0005C15 8.6431 14.8604 9.24694 14.6152 9.7715" stroke="currentColor" strokeLinecap="round"></path>
+                                <path d="M2.86328 8H13.1405" stroke="currentColor" strokeLinecap="round"></path>
+                              </svg>
+                            </div>
+                          </div>
+                          <div className="index_v2_contentText__bscyr" style={{
+                            fontSize: '14px',
+                            color: 'rgba(0, 0, 0, 0.9)'
+                          }}>自动搜索</div>
+                        </div>
+                        <div className="index_v2_actionSection__ih7td" style={{
+                          display: 'flex',
+                          alignItems: 'center'
+                        }}>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                            <path d="M3.5 5.00024L6.5 8.00024L9.5 5.00024" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"></path>
+                          </svg>
+                        </div>
+                      </div>
+
+                      {/* 工具按钮 */}
+                      <button type="button" className="ybc-atomSelect-tools" style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        padding: '4px 8px',
+                        borderRadius: '6px',
+                        border: 'none',
+                        background: 'transparent',
+                        cursor: 'pointer',
+                        fontSize: '14px',
+                        color: 'rgba(0, 0, 0, 0.9)',
+                        transition: 'background-color 0.2s'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f3f4f6'}
+                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                      >
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g clipPath="url(#clip0_2524_43861)">
+                            <path d="M4.49609 8.79297C6.01297 8.79297 7.24299 10.0223 7.24316 11.5391C7.24303 13.0558 6.013 14.2861 4.49609 14.2861C2.97927 14.286 1.75013 13.0558 1.75 11.5391C1.75018 10.0224 2.9793 8.79307 4.49609 8.79297ZM11.2432 8.79297C12.7599 8.79309 13.9891 10.0224 13.9893 11.5391C13.9891 13.0558 12.76 14.286 11.2432 14.2861C9.72626 14.2861 8.49622 13.0558 8.49609 11.5391C8.49627 10.0223 9.72629 8.79297 11.2432 8.79297ZM4.49609 9.99219C3.64214 9.99229 2.9494 10.685 2.94922 11.5391C2.94935 12.3931 3.64211 13.0858 4.49609 13.0859C5.35016 13.0859 6.04284 12.3932 6.04297 11.5391C6.04279 10.685 5.35013 9.99219 4.49609 9.99219ZM11.2432 9.99219C10.3891 9.99219 9.69647 10.685 9.69629 11.5391C9.69642 12.3932 10.3891 13.0859 11.2432 13.0859C12.0971 13.0858 12.7899 12.3931 12.79 11.5391C12.7899 10.685 12.0971 9.99231 11.2432 9.99219ZM4.49609 2.0459C6.01298 2.0459 7.24299 3.27525 7.24316 4.79199C7.24303 6.30877 6.013 7.53906 4.49609 7.53906C2.97927 7.53896 1.75013 6.30871 1.75 4.79199C1.75017 3.27531 2.97929 2.046 4.49609 2.0459ZM10.9385 2.31738C11.0476 2.03155 11.4524 2.03156 11.5615 2.31738L11.958 3.3584C12.0979 3.72561 12.3928 4.01276 12.7637 4.14258L13.6016 4.43555C13.8987 4.53987 13.8986 4.96004 13.6016 5.06445L12.7637 5.3584C12.3929 5.48819 12.0979 5.77451 11.958 6.1416L11.5615 7.18262C11.4525 7.46885 11.0475 7.46885 10.9385 7.18262L10.542 6.1416C10.4021 5.77451 10.1071 5.48819 9.73633 5.3584L8.89844 5.06445C8.60143 4.96003 8.60134 4.53987 8.89844 4.43555L9.73633 4.14258C10.1072 4.01276 10.4021 3.72561 10.542 3.3584L10.9385 2.31738ZM4.49609 3.24512C3.64213 3.24522 2.94939 3.93795 2.94922 4.79199C2.94935 5.64607 3.64211 6.33877 4.49609 6.33887C5.35016 6.33887 6.04284 5.64613 6.04297 4.79199C6.0428 3.93789 5.35014 3.24512 4.49609 3.24512Z" fill="currentColor" fillOpacity="0.9"></path>
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_2524_43861">
+                              <rect width="16" height="16" fill="currentColor"></rect>
+                            </clipPath>
+                          </defs>
+                        </svg>
+                        <span style={{ fontSize: '14px' }}>工具</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                          <path d="M3.5 5.00024L6.5 8.00024L9.5 5.00024" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"></path>
+                        </svg>
+                      </button>
+                    </div>
+
                     <div className="agent-dialogue__content--common__input-box" style={{
                       background: '#f9fafb',
                       border: '1px solid #e5e7eb',
