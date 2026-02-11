@@ -10,7 +10,7 @@
     "code": "",
     "abstract": "Recent progress in GPU-accelerated, photorealistic simulation has opened a scalable data-generation path for robot learning, where massive physics and visual randomization allow policies to generalize beyond curated environments. Building on these advances, we develop a teacher-student-bootstrap learning framework for vision-based humanoid loco-manipulation, using articulated-object interaction as a representative high-difficulty benchmark. Our approach introduces a staged-reset exploration strategy that stabilizes long-horizon privileged-policy training, and a GRPO-based fine-tuning procedure that mitigates partial observability and improves closed-loop consistency in sim-to-real RL. Trained entirely on simulation data, the resulting policy achieves robust zero-shot performance across diverse door types and outperforms human teleoperators by up to 31.7% in task completion time under the same whole-body control stack. This represents the first humanoid sim-to-real policy capable of diverse articulated loco-manipulation using pure RGB perception.",
     "bibtex": "@article{xue2025openingsimtorealdoorhumanoid,\n    title={Opening the Sim-to-Real Door for Humanoid Pixel-to-Action Policy Transfer},\n    author={Haoru Xue and Tairan He and Zi Wang and Qingwei Ben and Wenli Xiao and Zhengyi Luo and Xingye Da and Fernando Castañeda and Guanya Shi and Shankar Sastry and Linxi \"Jim\" Fan and Yuke Zhu},\n    year={2025},\n    eprint={2512.01061},\n    archivePrefix={arXiv},\n    primaryClass={cs.RO},\n    url={https://arxiv.org/abs/2512.01061}\n  }",
-    "image": "/index_files/tairan&amp;h1_crop.JPG",
+    "image": "",
     "video": "images/doorman/doorman-teaser-576P.mp4"
   },
   {
@@ -376,33 +376,5 @@
     "bibtex": "@inproceedings{fu2022deep,\n  author = {Fu, Zipeng and Cheng, Xuxin and \n            Pathak, Deepak},\n  title = {Deep Whole-Body Control: Learning a Unified Policy\n           for Manipulation and Locomotion},\n  booktitle = {Conference on Robot Learning ({CoRL})},\n  year = {2022}\n}",
     "image": "",
     "video": "images/wbc-clip.mp4"
-  },
-  {
-    "title": "SJTU Anonymous Forum 「无可奉告」",
-    "authors": "",
-    "year": "",
-    "link": "https://www.bilibili.com/video/BV1Rp4y187ZJ",
-    "webpage": "",
-    "pdf": "",
-    "arxiv": "",
-    "code": "",
-    "abstract": "A carefree forum platform for SJTUers sharing and talking with anonymous identity. More than <font color=\"red\"><em><strong>10000+</strong></em></font> users used「无可奉告」in the SJTU campus.",
-    "bibtex": "",
-    "image": "/index_files/wkfgicon.png",
-    "video": ""
-  },
-  {
-    "title": "WhynotTV Podcast",
-    "authors": "</p>\n\n      <div class=\"paper\" id=\"podcast\">\n\n        I host <a href=\"https://tairanhe.com/podcast_en\">WhynotTV Podcast</a> / <a href=\"https://tairanhe.com/podcast_cn\">WhynotTV播客</a>, a deep, professional, hardcore, long-form (2-4 hours) AI tech video podcast—focusing on",
-    "year": "",
-    "link": "https://tairanhe.com/podcast_en",
-    "webpage": "",
-    "pdf": "",
-    "arxiv": "",
-    "code": "",
-    "abstract": "",
-    "bibtex": "",
-    "image": "/index_files/whynottv.png",
-    "video": ""
   }
 ]

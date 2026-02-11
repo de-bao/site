@@ -10,11 +10,22 @@ def extract_publications(html_content):
     """提取所有论文信息"""
     publications = []
     
+    # 找到Publications部分的开始和结束
+    pub_start = html_content.find('<sectionheading>&nbsp;&nbsp;Publications</sectionheading>')
+    pub_end = html_content.find('<sectionheading>&nbsp;&nbsp;Projects</sectionheading>')
+    
+    if pub_start == -1 or pub_end == -1:
+        print("未找到Publications部分")
+        return []
+    
+    # 只提取Publications部分的内容
+    pub_section = html_content[pub_start:pub_end]
+    
     # 匹配每个论文的tr块
     paper_pattern = r'<tr>.*?<heading>(.*?)</heading>.*?</tr>'
-    matches = list(re.finditer(paper_pattern, html_content, re.DOTALL))
+    matches = list(re.finditer(paper_pattern, pub_section, re.DOTALL))
     
-    print(f"找到 {len(matches)} 篇论文")
+    print(f"找到 {len(matches)} 篇论文（仅Publications部分）")
     
     for i, match in enumerate(matches):
         paper_html = match.group(0)
