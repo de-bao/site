@@ -431,3 +431,395 @@ npm run preview
 ---
 
 **有问题随时问！** 🚀
+
+---
+
+## API 集成：现代前端与后端交互
+
+### 当前项目状态
+
+✅ **纯前端项目**：
+- React 18 + Vite + Tailwind CSS
+- 数据来自静态文件（`src/data/publications.js`）
+- 无后端依赖，可直接部署到静态托管（GitHub Pages）
+
+---
+
+### 如何添加后端 API 调用
+
+#### 示例1：从 API 获取论文列表（替换静态数据）
+
+**当前方式（静态数据）**：
+```jsx
+// src/components/Publications.jsx
+import { publications } from '../data/publications'
+
+const Publications = () => {
+  return (
+    <div>
+      {publications.map(pub => (
+        <PublicationItem key={pub.id} publication={pub} />
+      ))}
+    </div>
+  )
+}
+```
+
+**改为 API 调用**：
+```jsx
+// src/components/Publications.jsx
+import { useState, useEffect } from 'react'
+import Section from './Section'
+
+const Publications = () => {
+  const [publications, setPublications] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    // 组件加载时获取数据
+    fetch('https://api.example.com/publications')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('网络请求失败')
+        }
+        return response.json()
+      })
+      .then(data => {
+        setPublications(data)
+        setLoading(false)
+      })
+      .catch(err => {
+        setError(err.message)
+        setLoading(false)
+      })
+  }, []) // 空数组表示只在组件挂载时执行一次
+
+  if (loading) {
+    return <Section title="Publications"><div>加载中...</div></Section>
+  }
+
+  if (error) {
+    return <Section title="Publications"><div>错误：{error}</div></Section>
+  }
+
+  return (
+    <Section title="Publications">
+      {publications.map(pub => (
+        <PublicationItem key={pub.id} publication={pub} />
+      ))}
+    </Section>
+  )
+}
+```
+
+---
+
+#### 示例2：提交表单数据到后端
+
+```jsx
+// src/components/ContactForm.jsx
+import { useState } from 'react'
+
+const ContactForm = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  })
+  const [submitting, setSubmitting] = useState(false)
+  const [result, setResult] = useState(null)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setSubmitting(true)
+
+    try {
+      const response = await fetch('https://api.example.com/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      })
+
+      if (!response.ok) {
+        throw new Error('提交失败')
+      }
+
+      const data = await response.json()
+      setResult({ success: true, message: '提交成功！' })
+      setFormData({ name: '', email: '', message: '' }) // 清空表单
+    } catch (error) {
+      setResult({ success: false, message: '提交失败，请重试' })
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={formData.name}
+        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+        placeholder="姓名"
+      />
+      <input
+        type="email"
+        value={formData.email}
+        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+        placeholder="邮箱"
+      />
+      <textarea
+        value={formData.message}
+        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+        placeholder="留言"
+      />
+      <button type="submit" disabled={submitting}>
+        {submitting ? '提交中...' : '提交'}
+      </button>
+      {result && (
+        <div className={result.success ? 'text-green-600' : 'text-red-600'}>
+          {result.message}
+        </div>
+      )}
+    </form>
+  )
+}
+```
+
+---
+
+#### 示例3：使用自定义 Hook 封装 API 调用
+
+```jsx
+// src/hooks/usePublications.js
+import { useState, useEffect } from 'react'
+
+export const usePublications = () => {
+  const [publications, setPublications] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    fetch('https://api.example.com/publications')
+      .then(response => response.json())
+      .then(data => {
+        setPublications(data)
+        setLoading(false)
+      })
+      .catch(err => {
+        setError(err.message)
+        setLoading(false)
+      })
+  }, [])
+
+  return { publications, loading, error }
+}
+
+// 在组件中使用
+// src/components/Publications.jsx
+import { usePublications } from '../hooks/usePublications'
+
+const Publications = () => {
+  const { publications, loading, error } = usePublications()
+
+  if (loading) return <div>加载中...</div>
+  if (error) return <div>错误：{error}</div>
+
+  return (
+    <Section title="Publications">
+      {publications.map(pub => (
+        <PublicationItem key={pub.id} publication={pub} />
+      ))}
+    </Section>
+  )
+}
+```
+
+---
+
+#### 示例4：使用 axios（更强大的 HTTP 客户端）
+
+```bash
+# 安装 axios
+npm install axios
+```
+
+```jsx
+// src/components/Publications.jsx
+import axios from 'axios'
+import { useState, useEffect } from 'react'
+
+const Publications = () => {
+  const [publications, setPublications] = useState([])
+
+  useEffect(() => {
+    axios.get('https://api.example.com/publications')
+      .then(response => {
+        setPublications(response.data)
+      })
+      .catch(error => {
+        console.error('获取数据失败:', error)
+      })
+  }, [])
+
+  // ... 渲染逻辑
+}
+```
+
+---
+
+### Jekyll vs React：后端交互对比
+
+#### Jekyll（静态网站生成器）
+
+**特点**：
+- ❌ **无法直接调用 API**：Jekyll 在构建时生成静态 HTML，运行时无法动态获取数据
+- ❌ **数据必须预先写入**：所有数据必须在构建时存在
+- ❌ **无状态管理**：无法处理用户交互、表单提交等动态操作
+- ✅ **适合**：纯静态内容展示（博客、文档、简历）
+
+**工作流程**：
+```
+编辑 Markdown/HTML 
+  → Jekyll 构建（生成静态 HTML）
+  → 部署到服务器
+  → 用户访问（只看到静态 HTML，无法交互）
+```
+
+---
+
+#### React（现代前端框架）
+
+**特点**：
+- ✅ **可以直接调用 API**：在浏览器中运行时动态获取数据
+- ✅ **动态数据**：数据可以实时从后端获取
+- ✅ **状态管理**：可以处理用户交互、表单、实时更新等
+- ✅ **适合**：需要交互的应用（表单、实时数据、用户认证等）
+
+**工作流程**：
+```
+React 代码构建
+  → 部署到服务器（静态文件）
+  → 用户访问
+  → 浏览器加载 React
+  → React 运行时调用 API 获取数据
+  → 动态更新页面
+```
+
+---
+
+### 实际应用场景对比
+
+#### 场景1：显示论文列表
+
+**Jekyll**：
+```html
+<!-- 必须在构建时写入所有论文 -->
+<ul>
+  <li>论文1</li>
+  <li>论文2</li>
+  <!-- 添加新论文需要重新构建 -->
+</ul>
+```
+
+**React（静态数据）**：
+```jsx
+// 当前方式：数据在代码中
+import { publications } from '../data/publications'
+// 添加新论文需要修改代码并重新部署
+```
+
+**React（API 调用）**：
+```jsx
+// 从后端 API 获取
+fetch('https://api.example.com/publications')
+// 添加新论文只需更新数据库，前端自动显示
+```
+
+---
+
+#### 场景2：用户留言功能
+
+**Jekyll**：
+- ❌ **无法实现**：Jekyll 只能显示静态内容，无法处理表单提交
+
+**React**：
+```jsx
+// ✅ 可以轻松实现
+const handleSubmit = async (e) => {
+  e.preventDefault()
+  await fetch('https://api.example.com/messages', {
+    method: 'POST',
+    body: JSON.stringify(formData)
+  })
+}
+```
+
+---
+
+#### 场景3：实时数据更新
+
+**Jekyll**：
+- ❌ **无法实现**：页面是静态的，无法实时更新
+
+**React**：
+```jsx
+// ✅ 可以定时刷新数据
+useEffect(() => {
+  const interval = setInterval(() => {
+    fetch('https://api.example.com/latest')
+      .then(res => res.json())
+      .then(data => setLatestData(data))
+  }, 5000) // 每5秒更新一次
+
+  return () => clearInterval(interval)
+}, [])
+```
+
+---
+
+### 总结
+
+#### 你的项目现在是纯前端
+
+✅ **当前状态**：
+- React + Vite（现代前端框架）
+- 数据来自静态文件
+- 可以直接部署到 GitHub Pages（静态托管）
+
+✅ **添加后端交互很简单**：
+- 在组件中使用 `fetch` 或 `axios` 调用 API
+- 使用 React Hooks（`useState`, `useEffect`）管理数据
+- 处理加载状态、错误处理
+
+#### 与 Jekyll 的核心区别
+
+| 特性 | Jekyll | React（你的项目） |
+|------|--------|------------------|
+| **数据来源** | 构建时写入 | 运行时获取（可调用 API） |
+| **交互能力** | 无 | 有（表单、实时更新等） |
+| **状态管理** | 无 | 有（React State） |
+| **API 调用** | ❌ 无法调用 | ✅ 可以调用 |
+| **适用场景** | 静态内容 | 静态 + 动态交互 |
+
+#### 下一步
+
+如果你想添加后端交互：
+
+1. **创建 API 服务**（可选）：
+   - 使用 Node.js + Express
+   - 或使用 Python + Flask/FastAPI
+   - 或使用现成的后端服务（Firebase、Supabase 等）
+
+2. **在前端调用 API**：
+   - 使用 `fetch` 或 `axios`
+   - 使用 React Hooks 管理状态
+
+3. **处理 CORS**（如果 API 在不同域名）：
+   - 后端需要设置 CORS 头
+   - 或使用代理（Vite 支持）
+
+**简单来说**：你的项目已经是现代前端了，添加 API 调用就像在组件中加几行代码一样简单！🚀
