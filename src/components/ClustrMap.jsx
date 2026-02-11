@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 
 const ClustrMap = () => {
   useEffect(() => {
-    // Load ClustrMaps script
     const script = document.createElement('script')
     script.id = 'clustrmaps'
     script.src = '/index_files/map_v2.js'
@@ -10,7 +9,6 @@ const ClustrMap = () => {
     document.body.appendChild(script)
 
     return () => {
-      // Cleanup
       const existingScript = document.getElementById('clustrmaps')
       if (existingScript) {
         document.body.removeChild(existingScript)

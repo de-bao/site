@@ -1,3 +1,5 @@
+import Section from './Section'
+
 const News = () => {
   const newsItems = [
     { date: '[09/2025]', content: 'Invited talk on Scalable Sim-to-Real Learning for General-Purpose Humanoid Skills at GRASP SFI Seminar.', link: 'https://www.youtube.com/watch?v=sRpx2hkap98' },
@@ -10,9 +12,7 @@ const News = () => {
   ]
 
   return (
-    <div className="mb-8">
-      <hr className="my-6 border-t border-gray-300" />
-      <h2 className="text-2xl font-semibold mb-4">News</h2>
+    <Section title="News">
       <ul className="list-disc list-inside space-y-2 ml-4">
         {newsItems.map((item, index) => (
           <li key={index} className="text-base">
@@ -20,7 +20,7 @@ const News = () => {
             {item.link ? (
               <>
                 {item.content.split(item.link.split('/').pop() || '')[0]}
-                <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-secondary">
+                <a href={item.link} target="_blank" rel="noopener noreferrer">
                   {item.content.match(/[^[]*$/)?.[0] || item.content}
                 </a>
               </>
@@ -30,7 +30,7 @@ const News = () => {
           </li>
         ))}
       </ul>
-    </div>
+    </Section>
   )
 }
 

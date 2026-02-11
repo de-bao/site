@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 const Header = () => {
   return (
     <div className="mb-8">

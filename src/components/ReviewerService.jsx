@@ -1,3 +1,5 @@
+import Section from './Section'
+
 const ReviewerService = () => {
   const services = [
     "International Conference on Robotics and Automation (ICRA) 2025",
@@ -16,9 +18,7 @@ const ReviewerService = () => {
   ]
 
   return (
-    <div className="mb-8">
-      <hr className="my-6 border-t border-gray-300" />
-      <h2 className="text-2xl font-semibold mb-4">Reviewer Service</h2>
+    <Section title="Reviewer Service">
       <div className="space-y-2">
         {services.map((service, index) => (
           <div key={index} className="text-base">
@@ -35,7 +35,7 @@ const ReviewerService = () => {
           </div>
         ))}
       </div>
-    </div>
+    </Section>
   )
 }
 

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { publications } from '../data/publications'
+import Section from './Section'
 
 const PublicationItem = ({ publication }) => {
   const [showAbstract, setShowAbstract] = useState(false)
@@ -34,7 +35,7 @@ const PublicationItem = ({ publication }) => {
       </div>
       <div className="md:col-span-3">
         <h3 className="text-lg font-semibold mb-2">
-          <a href={publication.link} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-secondary">
+          <a href={publication.link} target="_blank" rel="noopener noreferrer">
             {publication.title}
           </a>
         </h3>
@@ -56,11 +57,11 @@ const PublicationItem = ({ publication }) => {
         </div>
         <div className="flex flex-wrap gap-2 text-sm mb-2">
           {publication.webpage && (
-            <a href={publication.webpage} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-secondary">webpage</a>
+            <a href={publication.webpage} target="_blank" rel="noopener noreferrer">webpage</a>
           )}
           {publication.pdf && (
             <>
-              | <a href={publication.pdf} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-secondary">pdf</a>
+              | <a href={publication.pdf} target="_blank" rel="noopener noreferrer">pdf</a>
             </>
           )}
           {publication.abstract && (
@@ -85,12 +86,12 @@ const PublicationItem = ({ publication }) => {
           )}
           {publication.arxiv && (
             <>
-              | <a href={publication.arxiv} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-secondary">arXiv</a>
+              | <a href={publication.arxiv} target="_blank" rel="noopener noreferrer">arXiv</a>
             </>
           )}
           {publication.code && (
             <>
-              | <a href={publication.code} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-secondary">code</a>
+              | <a href={publication.code} target="_blank" rel="noopener noreferrer">code</a>
             </>
           )}
         </div>
@@ -109,15 +110,13 @@ const PublicationItem = ({ publication }) => {
 
 const Publications = () => {
   return (
-    <div className="mb-8">
-      <hr className="my-6 border-t border-gray-300" />
-      <h2 className="text-2xl font-semibold mb-6">Publications</h2>
+    <Section title="Publications">
       <div>
         {publications.map((pub, index) => (
           <PublicationItem key={index} publication={pub} />
         ))}
       </div>
-    </div>
+    </Section>
   )
 }
 

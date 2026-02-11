@@ -1,8 +1,8 @@
+import Section from './Section'
+
 const Projects = () => {
   return (
-    <div className="mb-8">
-      <hr className="my-6 border-t border-gray-300" />
-      <h2 className="text-2xl font-semibold mb-6">Projects</h2>
+    <Section title="Projects">
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
         <div className="md:col-span-2">
           <a href="https://www.bilibili.com/video/BV1Rp4y187ZJ" target="_blank" rel="noopener noreferrer">
@@ -19,19 +19,18 @@ const Projects = () => {
               href="https://www.bilibili.com/video/BV1Rp4y187ZJ" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-primary hover:text-secondary"
             >
               SJTU Anonymous Forum 「无可奉告」
             </a>
           </h3>
           <div className="flex flex-wrap gap-2 text-sm mb-2">
-            <a href="https://github.com/TairanHe/SJTU-Anonymous_Forum" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-secondary">
+            <a href="https://github.com/TairanHe/SJTU-Anonymous_Forum" target="_blank" rel="noopener noreferrer">
               Android Code
             </a>
-            | <a href="https://github.com/oscardhc/Forum" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-secondary">
+            | <a href="https://github.com/oscardhc/Forum" target="_blank" rel="noopener noreferrer">
               iOS Code
             </a>
-            | <a href="https://www.bilibili.com/video/BV1Rp4y187ZJ" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-secondary">
+            | <a href="https://www.bilibili.com/video/BV1Rp4y187ZJ" target="_blank" rel="noopener noreferrer">
               Farewell Video
             </a>
           </div>
@@ -41,7 +40,7 @@ const Projects = () => {
           </p>
         </div>
       </div>
-    </div>
+    </Section>
   )
 }
 
