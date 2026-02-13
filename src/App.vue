@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <!-- 左侧导航栏 -->
-    <Sidebar />
+    <Sidebar :collapsed="sidebarCollapsed" @toggle="sidebarCollapsed = !sidebarCollapsed" />
 
     <!-- 主内容区域 -->
     <div class="main-content">
@@ -44,6 +44,7 @@ const inputValue = ref('')
 const messages = ref([])
 const isChatMode = ref(false)
 const selectedModel = ref(MODELS.MODEL1)
+const sidebarCollapsed = ref(false)
 
 // 拖拽上传
 const { isDragging, handlers: dragHandlers } = useDragAndDrop((files) => {

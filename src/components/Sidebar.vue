@@ -1,24 +1,30 @@
 <template>
-  <div class="sidebar">
+  <div :class="['sidebar', { collapsed: collapsed }]">
     <!-- 顶部按钮 -->
     <div class="sidebar-header">
       <div
-        v-for="i in 2"
-        :key="i"
+        class="header-button"
+        @click="$emit('toggle')"
+        @mouseenter="handleHover"
+        @mouseleave="handleLeave"
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path
+            d="M3 5H17M3 10H17M3 15H17"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+      <div
+        v-if="!collapsed"
         class="header-button"
         @mouseenter="handleHover"
         @mouseleave="handleLeave"
       >
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
           <path
-            v-if="i === 1"
-            d="M3 5H17M3 10H17M3 15H17"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-          />
-          <path
-            v-else
             d="M10 4V16M4 10H16"
             stroke="currentColor"
             stroke-width="2"
@@ -29,7 +35,7 @@
     </div>
 
     <!-- 搜索框 -->
-    <div class="sidebar-search">
+    <div v-if="!collapsed" class="sidebar-search">
       <div class="search-box">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path
@@ -44,7 +50,7 @@
     </div>
 
     <!-- 导航项 -->
-    <div class="sidebar-content">
+    <div v-if="!collapsed" class="sidebar-content">
         <div
           v-for="item in navItems"
           :key="item.id"
@@ -82,7 +88,7 @@
     </div>
 
     <!-- 底部 -->
-    <div class="sidebar-footer">
+    <div v-if="!collapsed" class="sidebar-footer">
       <div class="footer-item" @mouseenter="handleHover" @mouseleave="handleLeave">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path
@@ -105,6 +111,15 @@
 <script setup>
 import { NAV_ITEMS } from '../constants'
 
+defineProps({
+  collapsed: {
+    type: Boolean,
+    default: false
+  }
+})
+
+defineEmits(['toggle'])
+
 const navItems = NAV_ITEMS
 
 const handleHover = (e) => {
@@ -124,6 +139,11 @@ const handleLeave = (e) => {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  transition: width 0.3s ease;
+}
+
+.sidebar.collapsed {
+  width: 60px;
 }
 
 .sidebar-header {
