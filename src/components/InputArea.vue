@@ -477,8 +477,8 @@ const handleAttach = (type) => {
   font-size: 12px;
 }
 
-/* 移动端响应式 */
-@media (max-width: 768px) {
+/* 移动端响应式 - 只在真正的触摸设备上应用 */
+@media (max-width: 768px) and (pointer: coarse) {
   .input-area {
     padding: 12px 16px;
     padding-bottom: calc(12px + env(safe-area-inset-bottom));
@@ -561,8 +561,8 @@ const handleAttach = (type) => {
   }
 }
 
-/* 小屏幕手机 */
-@media (max-width: 480px) {
+/* 小屏幕手机 - 只在真正的触摸设备上应用 */
+@media (max-width: 480px) and (pointer: coarse) {
   .input-area {
     padding: 10px 12px;
     padding-bottom: calc(10px + env(safe-area-inset-bottom));

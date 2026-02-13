@@ -130,8 +130,8 @@ const handleItemLeave = (e) => {
   color: #6b7280;
 }
 
-/* 移动端响应式 */
-@media (max-width: 768px) {
+/* 移动端响应式 - 只在真正的触摸设备上应用 */
+@media (max-width: 768px) and (pointer: coarse) {
   .header {
     padding: 10px 12px;
   }

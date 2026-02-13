@@ -50,9 +50,10 @@ const selectedModel = ref(MODELS.QWEN)
 // 移动端默认隐藏侧边栏
 const sidebarCollapsed = ref(false)
 
-// 检测移动端并默认隐藏侧边栏
+// 检测移动端并默认隐藏侧边栏（只在真正的触摸设备上）
 onMounted(() => {
-  if (window.innerWidth <= 768) {
+  const isTouchDevice = window.matchMedia('(pointer: coarse)').matches
+  if (window.innerWidth <= 768 && isTouchDevice) {
     sidebarCollapsed.value = true
   }
 })
@@ -102,8 +103,8 @@ const handleExampleClick = (text) => {
   overflow: hidden;
 }
 
-/* 移动端响应式 */
-@media (max-width: 768px) {
+/* 移动端响应式 - 只在真正的触摸设备上应用 */
+@media (max-width: 768px) and (pointer: coarse) {
   .app {
     position: relative;
   }

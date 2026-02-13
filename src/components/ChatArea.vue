@@ -136,8 +136,8 @@ defineProps({
   border: none;
 }
 
-/* 移动端响应式 */
-@media (max-width: 768px) {
+/* 移动端响应式 - 只在真正的触摸设备上应用 */
+@media (max-width: 768px) and (pointer: coarse) {
   .chat-area {
     padding: 20px 12px 180px;
   }
