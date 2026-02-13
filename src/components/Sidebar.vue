@@ -17,21 +17,6 @@
           />
         </svg>
       </div>
-      <div
-        v-if="!collapsed"
-        class="header-button"
-        @mouseenter="handleHover"
-        @mouseleave="handleLeave"
-      >
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path
-            d="M10 4V16M4 10H16"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-          />
-        </svg>
-      </div>
     </div>
 
     <!-- 搜索框 -->
