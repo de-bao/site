@@ -29,6 +29,11 @@ site/
 │   │   └── useDragAndDrop.js
 │   ├── constants/          # 常量定义
 │   │   └── index.js
+│   ├── services/           # API服务
+│   │   ├── api.js          # 后端API调用
+│   │   └── storage.js      # 本地存储服务
+│   ├── utils/              # 工具函数
+│   │   └── fileHandler.js  # 文件处理工具
 │   ├── App.vue             # 根组件
 │   ├── main.js             # 入口文件
 │   └── index.css           # 全局样式
@@ -64,35 +69,66 @@ npm run build
 - ✅ 聊天界面（消息列表）
 - ✅ 模型选择
 - ✅ 示例问题卡片
-- ✅ 文件拖拽上传
+- ✅ **文件上传**（拖拽上传、图片/文档/联网文档）
 - ✅ 响应式布局
+- ✅ **聊天记录持久化**（localStorage + 后端数据库）
+- ✅ **多设备同步**（自动同步到服务器）
 
-## 🔨 接入API
+## 🔨 后端API接入
 
-修改 `src/App.vue` 中的 `handleSend` 函数：
+### 配置API地址
 
-```javascript
-const handleSend = async (text) => {
-  if (!text?.trim()) return
-
-  isChatMode.value = true
-  messages.value.push({ role: 'user', content: text })
-  
-  // 调用你的API
-  const response = await fetch('/api/chat', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ 
-      message: text, 
-      model: selectedModel.value 
-    })
-  })
-  const data = await response.json()
-  
-  messages.value.push({ role: 'assistant', content: data.reply })
-  inputValue.value = ''
-}
+1. 创建 `.env` 文件（参考 `.env.example`）：
+```bash
+VITE_API_BASE_URL=http://localhost:8000
 ```
+
+2. 如果后端运行在其他地址，修改 `.env` 中的 `VITE_API_BASE_URL`
+
+### 启动后端服务
+
+后端项目位于 `/home/10355407/下载/baode-resume/chatback`：
+
+```bash
+cd /home/10355407/下载/baode-resume/chatback
+pip install -r requirements.txt
+uvicorn app:app --reload --host 0.0.0.0 --port 8000
+```
+
+### API接口说明
+
+前端已集成后端API，通过 `src/services/api.js` 调用：
+
+- **POST /api/chat**: 发送聊天消息
+- **GET /health**: 健康检查
+
+前端会自动将消息发送到后端，并显示AI回复。支持错误处理和加载状态显示。
+
+### 聊天记录持久化
+
+项目实现了**混合持久化方案**：
+
+1. **前端 localStorage**（已实现）
+   - 自动保存聊天记录到浏览器本地存储
+   - 页面刷新后自动恢复
+   - 离线可用
+
+2. **后端数据库**（已实现）
+   - 使用 SQLite 存储聊天记录
+   - 支持多设备同步
+   - 自动后台同步到服务器
+
+**工作流程：**
+- 聊天记录变化时，先保存到 localStorage（快速）
+- 后台自动同步到服务器数据库（2秒防抖）
+- 页面加载时，尝试从服务器加载最新数据
+- 删除聊天时，同时删除本地和服务器记录
+
+**API端点：**
+- `POST /api/chat/save` - 保存聊天记录
+- `GET /api/chat/sessions` - 获取所有聊天会话
+- `GET /api/chat/session/{session_id}` - 获取聊天详情
+- `DELETE /api/chat/session/{session_id}` - 删除聊天会话
 
 ## 📝 自定义
 
@@ -100,6 +136,32 @@ const handleSend = async (text) => {
 - **修改建议卡片**：编辑 `src/constants/index.js` 中的 `SUGGESTION_CARDS`
 - **修改导航**：编辑 `src/constants/index.js` 中的 `NAV_ITEMS`
 - **修改颜色**：编辑 `src/constants/index.js` 中的 `COLORS`
+
+## 📎 文件上传功能
+
+项目支持多种文件上传方式：
+
+1. **拖拽上传**
+   - 直接拖拽文件到聊天区域
+   - 支持图片、文档等多种格式
+
+2. **附件按钮上传**
+   - 点击输入框右侧的 "+" 按钮
+   - 选择上传类型：
+     - **图片**：上传本地图片文件
+     - **本地文件**：上传各种格式的文件
+     - **联网文档**：输入文档URL进行分析
+
+3. **支持的文件类型**
+   - 图片：jpg, png, webp, gif 等
+   - 文档：pdf, doc, docx, txt, md 等
+   - 代码文件：js, py, java, cpp 等
+   - 其他常见文件格式
+
+4. **文件处理**
+   - 图片自动转换为Base64显示
+   - 小文档（<1MB）自动读取文本内容
+   - 文件信息自动添加到消息中
 
 ## 📄 License
 

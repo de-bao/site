@@ -193,6 +193,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useClickOutside } from '../composables/useClickOutside'
+import { selectFiles, processFiles } from '../utils/fileHandler'
 
 const props = defineProps({
   modelValue: {
@@ -201,7 +202,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['update:modelValue', 'send'])
+const emit = defineEmits(['update:modelValue', 'send', 'attach'])
 
 const textareaRef = ref(null)
 const inputValue = ref(props.modelValue)
@@ -279,10 +280,51 @@ const handleItemLeave = (e) => {
   e.currentTarget.style.backgroundColor = 'transparent'
 }
 
-const handleAttach = (type) => {
-  console.log('Attach type:', type)
+const handleAttach = async (type) => {
   showAttachDropdown.value = false
-  // TODO: 实现附件上传逻辑
+  
+  try {
+    let accept = '*/*'
+    let multiple = true
+    
+    // 根据类型设置文件选择器
+    if (type === 'image') {
+      accept = 'image/*'
+    } else if (type === 'file') {
+      accept = '*/*'
+    } else if (type === 'document') {
+      // 联网文档：提示用户输入URL
+      const url = prompt('请输入文档URL:')
+      if (url && url.trim()) {
+        emit('attach', {
+          type: 'document',
+          url: url.trim(),
+          source: 'network'
+        })
+      }
+      return
+    }
+    
+    // 选择文件
+    const files = await selectFiles(accept, multiple)
+    
+    // 处理文件
+    const processedFiles = await processFiles(files)
+    
+    // 发送附件事件
+    for (const file of processedFiles) {
+      emit('attach', {
+        type: file.fileType,
+        file: file,
+        source: 'local'
+      })
+    }
+  } catch (error) {
+    // 用户取消选择或其他错误，不处理
+    if (error.message !== '取消选择') {
+      console.warn('附件处理失败:', error)
+    }
+  }
 }
 </script>
 
