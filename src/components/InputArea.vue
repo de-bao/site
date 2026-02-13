@@ -476,4 +476,114 @@ const handleAttach = (type) => {
   color: #9ca3af;
   font-size: 12px;
 }
+
+/* 移动端响应式 */
+@media (max-width: 768px) {
+  .input-area {
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  }
+
+  .input-container {
+    gap: 6px;
+  }
+
+  .toolbar {
+    gap: 6px;
+    font-size: 12px;
+    padding: 0 2px;
+    flex-wrap: wrap;
+  }
+
+  .toolbar-item {
+    padding: 3px 6px;
+    gap: 3px;
+    font-size: 12px;
+  }
+
+  .toolbar-item span {
+    display: none;
+  }
+
+  .toolbar-item svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .input-wrapper {
+    padding: 10px;
+    gap: 8px;
+    border-radius: 10px;
+  }
+
+  .input-textarea {
+    font-size: 16px; /* 防止iOS自动缩放 */
+    min-height: 22px;
+    max-height: 100px;
+  }
+
+  .action-button,
+  .send-button {
+    width: 28px;
+    height: 28px;
+  }
+
+  .action-button svg,
+  .send-button svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .dropdown-menu {
+    min-width: 100px;
+    font-size: 13px;
+  }
+
+  .dropdown-item {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
+  .attach-dropdown-menu {
+    bottom: 100%;
+    right: 0;
+    left: auto;
+    min-width: 120px;
+  }
+
+  .attach-dropdown-item {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
+  .copyright {
+    font-size: 11px;
+  }
+}
+
+/* 小屏幕手机 */
+@media (max-width: 480px) {
+  .input-area {
+    padding: 10px 12px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  }
+
+  .toolbar {
+    gap: 4px;
+  }
+
+  .toolbar-item {
+    padding: 2px 4px;
+  }
+
+  .input-wrapper {
+    padding: 8px;
+  }
+
+  .action-button,
+  .send-button {
+    width: 26px;
+    height: 26px;
+  }
+}
 </style>

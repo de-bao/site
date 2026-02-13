@@ -135,4 +135,41 @@ defineProps({
   color: white;
   border: none;
 }
+
+/* 移动端响应式 */
+@media (max-width: 768px) {
+  .chat-area {
+    padding: 20px 12px 180px;
+  }
+
+  .greeting {
+    font-size: 32px;
+    margin: 20px 0 16px;
+  }
+
+  .divider {
+    margin-bottom: 20px;
+  }
+
+  .messages {
+    gap: 12px;
+  }
+
+  .message-item {
+    gap: 8px;
+  }
+
+  .avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 11px;
+  }
+
+  .message-content {
+    max-width: 85%;
+    padding: 10px 12px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+}
 </style>

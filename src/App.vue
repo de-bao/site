@@ -1,5 +1,8 @@
 <template>
   <div class="app">
+    <!-- 移动端遮罩层 -->
+    <div v-if="!sidebarCollapsed" class="sidebar-overlay" @click="sidebarCollapsed = true"></div>
+
     <!-- 左侧导航栏 -->
     <Sidebar :collapsed="sidebarCollapsed" @toggle="sidebarCollapsed = !sidebarCollapsed" />
 
@@ -29,7 +32,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { MODELS } from './constants'
 import { useDragAndDrop } from './composables/useDragAndDrop'
 import Sidebar from './components/Sidebar.vue'
@@ -44,7 +47,15 @@ const inputValue = ref('')
 const messages = ref([])
 const isChatMode = ref(false)
 const selectedModel = ref(MODELS.QWEN)
+// 移动端默认隐藏侧边栏
 const sidebarCollapsed = ref(false)
+
+// 检测移动端并默认隐藏侧边栏
+onMounted(() => {
+  if (window.innerWidth <= 768) {
+    sidebarCollapsed.value = true
+  }
+})
 
 // 拖拽上传
 const { isDragging, handlers: dragHandlers } = useDragAndDrop((files) => {
@@ -89,5 +100,26 @@ const handleExampleClick = (text) => {
   background-color: #ffffff;
   position: relative;
   overflow: hidden;
+}
+
+/* 移动端响应式 */
+@media (max-width: 768px) {
+  .app {
+    position: relative;
+  }
+
+  .main-content {
+    width: 100%;
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
 }
 </style>

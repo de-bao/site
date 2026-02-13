@@ -129,4 +129,21 @@ const handleItemLeave = (e) => {
   height: 16px;
   color: #6b7280;
 }
+
+/* 移动端响应式 */
+@media (max-width: 768px) {
+  .header {
+    padding: 10px 12px;
+  }
+
+  .download-button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .download-dropdown-menu {
+    right: 0;
+    min-width: 140px;
+  }
+}
 </style>

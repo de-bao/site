@@ -551,4 +551,47 @@ const handleItemLeave = (e) => {
   height: 16px;
   color: #6b7280;
 }
+
+/* 移动端响应式 */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1000;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .sidebar.collapsed {
+    width: 0;
+    overflow: hidden;
+  }
+
+  .sidebar-header {
+    padding: 10px 12px;
+  }
+
+  .sidebar-search {
+    padding: 10px 12px;
+  }
+
+  .sidebar-content {
+    padding: 6px;
+  }
+
+  .nav-item {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
+  .chat-item {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
+  .sidebar-footer {
+    padding: 10px 12px;
+  }
+}
 </style>
