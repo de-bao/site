@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <!-- 移动端遮罩层 -->
+    <!-- 移动端遮罩层（侧边栏展开时显示） -->
     <div v-if="!sidebarCollapsed" class="sidebar-overlay" @click="sidebarCollapsed = true"></div>
 
     <!-- 左侧导航栏 -->
@@ -9,7 +9,12 @@
     <!-- 主内容区域 -->
     <div class="main-content">
       <!-- 顶部栏 -->
-      <Header :selected-model="selectedModel" @update:selected-model="selectedModel = $event" />
+      <Header 
+        :selected-model="selectedModel" 
+        :sidebar-collapsed="sidebarCollapsed"
+        @update:selected-model="selectedModel = $event"
+        @toggle-sidebar="sidebarCollapsed = !sidebarCollapsed"
+      />
 
       <!-- 聊天区域 -->
       <ChatArea

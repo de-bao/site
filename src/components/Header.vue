@@ -1,6 +1,25 @@
 <template>
   <div class="header">
-    <ModelSelector :selected-model="selectedModel" @update:selected-model="$emit('update:selectedModel', $event)" />
+    <div class="header-left">
+      <!-- 汉堡按钮（侧边栏隐藏时显示） -->
+      <div
+        v-if="sidebarCollapsed"
+        class="menu-button"
+        @click="$emit('toggleSidebar')"
+        @mouseenter="handleMenuHover"
+        @mouseleave="handleMenuLeave"
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path
+            d="M3 5H17M3 10H17M3 15H17"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+      <ModelSelector :selected-model="selectedModel" @update:selected-model="$emit('update:selectedModel', $event)" />
+    </div>
     <div ref="downloadDropdownRef" class="download-dropdown">
       <button class="download-button" @click="showDownloadDropdown = !showDownloadDropdown" @mouseenter="handleHover" @mouseleave="handleLeave">
         安装电脑版
@@ -40,10 +59,14 @@ defineProps({
   selectedModel: {
     type: String,
     required: true
+  },
+  sidebarCollapsed: {
+    type: Boolean,
+    default: false
   }
 })
 
-defineEmits(['update:selectedModel'])
+defineEmits(['update:selectedModel', 'toggleSidebar'])
 
 const showDownloadDropdown = ref(false)
 
@@ -67,6 +90,14 @@ const handleItemHover = (e) => {
 const handleItemLeave = (e) => {
   e.currentTarget.style.backgroundColor = 'transparent'
 }
+
+const handleMenuHover = (e) => {
+  e.currentTarget.style.backgroundColor = '#f3f4f6'
+}
+
+const handleMenuLeave = (e) => {
+  e.currentTarget.style.backgroundColor = 'transparent'
+}
 </script>
 
 <style scoped>
@@ -78,6 +109,25 @@ const handleItemLeave = (e) => {
   justify-content: space-between;
   position: relative;
   z-index: 10;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.menu-button {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
 }
 
 .download-dropdown {
