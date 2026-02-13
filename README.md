@@ -1,4 +1,4 @@
-# 豹网 - AI助手前端
+# の豹网 - AI助手前端
 
 基于 Vue 3 Composition API 的简洁AI助手前端项目。
 
