@@ -65,7 +65,7 @@
       <div
         v-for="chat in chatHistory"
         :key="chat.id"
-        class="chat-item"
+        :class="['chat-item', { active: chat.id === currentChatId }]"
         @mouseenter="(e) => handleChatHover(e, chat.id)"
         @mouseleave="(e) => handleChatLeave(e, chat.id)"
       >
@@ -132,18 +132,26 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { NAV_ITEMS } from '../constants'
 import { useClickOutside } from '../composables/useClickOutside'
 
-defineProps({
+const props = defineProps({
   collapsed: {
     type: Boolean,
     default: false
+  },
+  currentChatId: {
+    type: Number,
+    default: null
+  },
+  chatHistory: {
+    type: Array,
+    default: () => []
   }
 })
 
-const emit = defineEmits(['toggle', 'new-chat', 'select-chat'])
+const emit = defineEmits(['toggle', 'new-chat', 'select-chat', 'rename-chat', 'delete-chat'])
 
 const navItems = NAV_ITEMS
 const showUserDropdown = ref(false)
@@ -152,12 +160,7 @@ const activeChatMenuId = ref(null)
 const chatMenuRef = ref(null)
 
 // 聊天历史
-const chatHistory = ref([
-  { id: 1, name: '新对话 1' },
-  { id: 2, name: '新对话 2' }
-])
-
-let chatIdCounter = 3
+const chatHistory = computed(() => props.chatHistory || [])
 
 // 点击外部关闭用户下拉菜单
 const userDropdownRef = useClickOutside(() => {
@@ -219,7 +222,7 @@ const handleRenameChat = (chatId) => {
   if (chat) {
     const newName = prompt('请输入新名称:', chat.name)
     if (newName && newName.trim()) {
-      chat.name = newName.trim()
+      emit('rename-chat', chatId, newName.trim())
     }
   }
   activeChatMenuId.value = null
@@ -227,10 +230,7 @@ const handleRenameChat = (chatId) => {
 
 // 删除聊天
 const handleDeleteChat = (chatId) => {
-  const index = chatHistory.value.findIndex(c => c.id === chatId)
-  if (index > -1) {
-    chatHistory.value.splice(index, 1)
-  }
+  emit('delete-chat', chatId)
   activeChatMenuId.value = null
 }
 
@@ -413,6 +413,11 @@ const handleItemLeave = (e) => {
   align-items: center;
   justify-content: space-between;
   position: relative;
+}
+
+.chat-item.active {
+  background-color: #e0e7ff;
+  color: #0066ff;
 }
 
 .chat-item-name {

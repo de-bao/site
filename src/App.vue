@@ -6,8 +6,13 @@
     <!-- 左侧导航栏 -->
     <Sidebar 
       :collapsed="sidebarCollapsed" 
+      :current-chat-id="currentChatId"
+      :chat-history="Array.from(chats.values())"
       @toggle="sidebarCollapsed = !sidebarCollapsed"
       @new-chat="handleNewChat"
+      @select-chat="handleSelectChat"
+      @rename-chat="handleRenameChat"
+      @delete-chat="handleDeleteChat"
     />
 
     <!-- 主内容区域 -->
@@ -22,7 +27,7 @@
 
       <!-- 聊天区域 -->
       <ChatArea
-        :messages="messages"
+        :messages="currentChatMessages"
         :is-chat-mode="isChatMode"
         :on-drag-over="dragHandlers.onDragOver"
         :on-drag-leave="dragHandlers.onDragLeave"
@@ -41,7 +46,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { MODELS } from './constants'
 import { useDragAndDrop } from './composables/useDragAndDrop'
 import Sidebar from './components/Sidebar.vue'
@@ -53,11 +58,26 @@ import DragOverlay from './components/DragOverlay.vue'
 
 // 状态管理
 const inputValue = ref('')
-const messages = ref([])
-const isChatMode = ref(false)
 const selectedModel = ref(MODELS.QWEN)
-// 移动端默认隐藏侧边栏
 const sidebarCollapsed = ref(false)
+
+// 聊天会话管理
+const chats = ref(new Map()) // Map<chatId, { id, name, messages }>
+const currentChatId = ref(null)
+let chatIdCounter = 1
+
+// 当前聊天的消息
+const currentChatMessages = computed(() => {
+  if (!currentChatId.value || !chats.value.has(currentChatId.value)) {
+    return []
+  }
+  return chats.value.get(currentChatId.value).messages || []
+})
+
+// 当前聊天是否有消息（判断是否显示建议卡片）
+const isChatMode = computed(() => {
+  return currentChatMessages.value.length > 0
+})
 
 // 检测移动端并默认隐藏侧边栏（只在真正的触摸设备上）
 onMounted(() => {
@@ -65,6 +85,9 @@ onMounted(() => {
   if (window.innerWidth <= 768 && isTouchDevice) {
     sidebarCollapsed.value = true
   }
+  
+  // 初始化一个默认聊天
+  handleNewChat()
 })
 
 // 拖拽上传
@@ -77,12 +100,20 @@ const { isDragging, handlers: dragHandlers } = useDragAndDrop((files) => {
 const handleSend = (text) => {
   if (!text?.trim()) return
 
-  isChatMode.value = true
-  messages.value.push({ role: 'user', content: text })
+  // 确保有当前聊天会话
+  if (!currentChatId.value) {
+    handleNewChat()
+  }
+
+  const chat = chats.value.get(currentChatId.value)
+  if (!chat) return
+
+  // 添加用户消息
+  chat.messages.push({ role: 'user', content: text })
   
   // TODO: 调用AI API获取回复
   setTimeout(() => {
-    messages.value.push({ role: 'assistant', content: '这是AI的回复（待接入真实API）' })
+    chat.messages.push({ role: 'assistant', content: '这是AI的回复（待接入真实API）' })
   }, 500)
   
   inputValue.value = ''
@@ -96,13 +127,49 @@ const handleExampleClick = (text) => {
 }
 
 // 新建聊天
-const handleNewChat = () => {
-  // 清空消息
-  messages.value = []
-  // 重置聊天模式
-  isChatMode.value = false
-  // 清空输入
+const handleNewChat = (chatId) => {
+  // 如果传入了chatId，说明是从侧边栏触发的，使用该ID
+  const newChatId = chatId || chatIdCounter++
+  const newChat = {
+    id: newChatId,
+    name: `新对话 ${newChatId}`,
+    messages: []
+  }
+  
+  chats.value.set(newChatId, newChat)
+  currentChatId.value = newChatId
   inputValue.value = ''
+}
+
+// 选择聊天
+const handleSelectChat = (chatId) => {
+  if (chats.value.has(chatId)) {
+    currentChatId.value = chatId
+    inputValue.value = ''
+  }
+}
+
+// 重命名聊天
+const handleRenameChat = (chatId, newName) => {
+  const chat = chats.value.get(chatId)
+  if (chat) {
+    chat.name = newName
+  }
+}
+
+// 删除聊天
+const handleDeleteChat = (chatId) => {
+  chats.value.delete(chatId)
+  // 如果删除的是当前聊天，切换到其他聊天或创建新聊天
+  if (currentChatId.value === chatId) {
+    if (chats.value.size > 0) {
+      // 切换到第一个聊天
+      currentChatId.value = Array.from(chats.value.keys())[0]
+    } else {
+      // 创建新聊天
+      handleNewChat()
+    }
+  }
 }
 </script>
 
