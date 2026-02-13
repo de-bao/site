@@ -4,18 +4,23 @@
 
 // 模型配置
 export const MODELS = {
-  MODEL1: 'Model1',
-  MODEL2: 'Model2'
+  QWEN: 'Qwen',
+  KIMI: 'Kimi',
+  DEEPSEEK: 'DeepSeek'
 }
 
 export const MODEL_CONFIG = {
-  [MODELS.MODEL1]: {
-    name: 'Model1',
+  [MODELS.QWEN]: {
+    name: 'Qwen',
     description: '全能处理，深度思考'
   },
-  [MODELS.MODEL2]: {
-    name: 'Model2',
+  [MODELS.KIMI]: {
+    name: 'Kimi',
     description: '适合深度思考'
+  },
+  [MODELS.DEEPSEEK]: {
+    name: 'DeepSeek',
+    description: '高效推理，代码专家'
   }
 }
 
@@ -81,10 +86,7 @@ export const SUGGESTION_CARDS = [
 
 // 导航项配置
 export const NAV_ITEMS = [
-  { id: 'home', label: '首页', icon: '🏠', active: true },
-  { id: 'chat', label: '聊天', icon: '💬' },
-  { id: 'history', label: '历史', icon: '📜' },
-  { id: 'settings', label: '设置', icon: '⚙️' }
+  { id: 'home', label: '首页', icon: '🏠', active: true }
 ]
 
 // 文件类型支持

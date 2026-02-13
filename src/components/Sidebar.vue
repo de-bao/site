@@ -71,20 +71,6 @@
         <span class="nav-icon">📄</span>
         <span class="nav-label">分组示例</span>
       </div>
-
-      <!-- 聊天历史 -->
-      <div class="chat-header">
-        <span class="chat-title">聊天</span>
-      </div>
-      <div
-        v-for="i in 5"
-        :key="i"
-        class="chat-item"
-        @mouseenter="handleHover"
-        @mouseleave="handleLeave"
-      >
-        💬 {{ `0112新对话 ${i}` }}
-      </div>
     </div>
 
     <!-- 底部 -->
@@ -100,16 +86,43 @@
         </svg>
         <span>前往下载中心</span>
       </div>
-      <div class="footer-user" @mouseenter="handleHover" @mouseleave="handleLeave">
-        <div class="user-avatar"></div>
-        <span>用户名称</span>
+      <div ref="userDropdownRef" class="user-dropdown">
+        <div class="footer-user" @click="showUserDropdown = !showUserDropdown" @mouseenter="handleHover" @mouseleave="handleLeave">
+          <div class="user-avatar"></div>
+          <span>用户名称</span>
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+            <path
+              d="M3.5 5.00024L6.5 8.00024L9.5 5.00024"
+              stroke="currentColor"
+              stroke-width="1.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div v-if="showUserDropdown" class="user-dropdown-menu">
+          <div class="user-dropdown-item" @click="showUserDropdown = false" @mouseenter="handleItemHover" @mouseleave="handleItemLeave">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M8 2L10 6L14 7L10 8L8 12L6 8L2 7L6 6L8 2Z"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>设置</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { NAV_ITEMS } from '../constants'
+import { useClickOutside } from '../composables/useClickOutside'
 
 defineProps({
   collapsed: {
@@ -121,12 +134,26 @@ defineProps({
 defineEmits(['toggle'])
 
 const navItems = NAV_ITEMS
+const showUserDropdown = ref(false)
+
+// 点击外部关闭用户下拉菜单
+const userDropdownRef = useClickOutside(() => {
+  showUserDropdown.value = false
+})
 
 const handleHover = (e) => {
   e.currentTarget.style.backgroundColor = '#f3f4f6'
 }
 
 const handleLeave = (e) => {
+  e.currentTarget.style.backgroundColor = 'transparent'
+}
+
+const handleItemHover = (e) => {
+  e.currentTarget.style.backgroundColor = '#f3f4f6'
+}
+
+const handleItemLeave = (e) => {
   e.currentTarget.style.backgroundColor = 'transparent'
 }
 </script>
@@ -260,25 +287,6 @@ const handleLeave = (e) => {
   gap: 8px;
 }
 
-.chat-header {
-  margin-top: 16px;
-  margin-bottom: 8px;
-  padding: 0 12px;
-}
-
-.chat-title {
-  font-size: 12px;
-  color: #9ca3af;
-}
-
-.chat-item {
-  padding: 8px 12px;
-  font-size: 14px;
-  color: #6b7280;
-  cursor: pointer;
-  border-radius: 6px;
-  margin-bottom: 4px;
-}
 
 .sidebar-footer {
   padding: 12px 16px;
@@ -296,6 +304,10 @@ const handleLeave = (e) => {
   border-radius: 6px;
 }
 
+.user-dropdown {
+  position: relative;
+}
+
 .footer-user {
   display: flex;
   align-items: center;
@@ -303,6 +315,7 @@ const handleLeave = (e) => {
   padding: 8px 12px;
   cursor: pointer;
   border-radius: 6px;
+  width: 100%;
 }
 
 .user-avatar {
@@ -314,6 +327,38 @@ const handleLeave = (e) => {
 
 .footer-user span {
   font-size: 14px;
+  color: #6b7280;
+  flex: 1;
+}
+
+.user-dropdown-menu {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  margin-bottom: 8px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.user-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #1f2937;
+  transition: background-color 0.2s;
+}
+
+.user-dropdown-item svg {
+  width: 16px;
+  height: 16px;
   color: #6b7280;
 }
 </style>

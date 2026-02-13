@@ -3,7 +3,12 @@
     <div class="input-container">
       <!-- 工具栏（在搜索框上方） -->
       <div class="toolbar">
-        <div class="toolbar-item" @mouseenter="handleHover" @mouseleave="handleLeave">
+        <div
+          :class="['toolbar-item', { 'deep-think-active': isDeepThinkActive }]"
+          @click="isDeepThinkActive = !isDeepThinkActive"
+          @mouseenter="handleHover"
+          @mouseleave="handleLeave"
+        >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path
               d="M7.74121 3.17676C9.89642 1.88502 11.9715 1.59281 13.001 2.62207L13.1289 2.76465C14.002 3.83505 13.6794 5.82083 12.4443 7.88086C13.7358 10.0358 14.0282 12.1093 12.999 13.1387L12.8574 13.2676C11.7872 14.1405 9.8019 13.8175 7.74219 12.583C5.68184 13.8185 3.69561 14.1417 2.625 13.2686L2.4834 13.1396C1.45403 12.1102 1.74622 10.0361 3.03809 7.88086C1.80268 5.82062 1.48033 3.83423 2.35352 2.76367L2.48145 2.62207C3.51103 1.59274 5.58588 1.88478 7.74121 3.17676Z"
@@ -22,13 +27,10 @@
             @mouseenter="handleActiveHover"
             @mouseleave="handleActiveLeave"
           >
+            <!-- 地球图标 -->
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path
-                d="M8.0019 13.1391C10.8399 13.1391 13.1405 10.8384 13.1405 8.00044C13.1405 5.16245 10.8399 2.86182 8.0019 2.86182C5.16392 2.86182 2.86328 5.16245 2.86328 8.00044C2.86328 10.8384 5.16392 13.1391 8.0019 13.1391Z"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-              />
+              <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2" />
+              <path d="M2 8H14M8 2C9.5 4.5 10.5 6.5 10.5 8C10.5 9.5 9.5 11.5 8 14C6.5 11.5 5.5 9.5 5.5 8C5.5 6.5 6.5 4.5 8 2Z" stroke="currentColor" stroke-width="1.2" />
             </svg>
             <span>{{ searchMode === 'auto' ? '自动搜索' : '手动搜索' }}</span>
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
@@ -67,11 +69,21 @@
             @mouseenter="handleHover"
             @mouseleave="handleLeave"
           >
+            <!-- 工具图标（扳手） -->
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path
-                d="M4.49609 8.79297C6.01297 8.79297 7.24299 10.0223 7.24316 11.5391C7.24303 13.0558 6.013 14.2861 4.49609 14.2861C2.97927 14.286 1.75013 13.0558 1.75 11.5391C1.75018 10.0224 2.9793 8.79307 4.49609 8.79297Z"
-                fill="currentColor"
-                fill-opacity="0.9"
+                d="M6.5 2.5L3.5 5.5L5.5 7.5L2.5 10.5L5.5 13.5L8.5 10.5L10.5 12.5L13.5 9.5L10.5 6.5L8.5 8.5L5.5 5.5L6.5 2.5Z"
+                stroke="currentColor"
+                stroke-width="1.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                fill="none"
+              />
+              <path
+                d="M9.5 6.5L11.5 4.5"
+                stroke="currentColor"
+                stroke-width="1.2"
+                stroke-linecap="round"
               />
             </svg>
             <span>{{ toolMode || '工具' }}</span>
@@ -168,6 +180,7 @@ const showSearchDropdown = ref(false)
 const showToolDropdown = ref(false)
 const searchMode = ref('auto') // 'auto' | 'manual'
 const toolMode = ref('') // '写作' | '编程' | '解题'
+const isDeepThinkActive = ref(false) // 深度思考激活状态
 
 // 点击外部关闭下拉菜单
 const searchDropdownRef = useClickOutside(() => {
@@ -275,6 +288,15 @@ const handleActiveLeave = (e) => {
 
 .toolbar-item.active {
   background: #e5e7eb;
+}
+
+.toolbar-item.deep-think-active {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.toolbar-item.deep-think-active svg {
+  color: #16a34a;
 }
 
 .toolbar-dropdown {

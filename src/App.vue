@@ -43,7 +43,7 @@ import DragOverlay from './components/DragOverlay.vue'
 const inputValue = ref('')
 const messages = ref([])
 const isChatMode = ref(false)
-const selectedModel = ref(MODELS.MODEL1)
+const selectedModel = ref(MODELS.QWEN)
 const sidebarCollapsed = ref(false)
 
 // 拖拽上传
