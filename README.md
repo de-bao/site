@@ -1,157 +1,43 @@
-# 元宝聊天助手
+# 豹网 - AI助手前端
 
-基于腾讯元宝官网样式的AI聊天助手页面，使用 Vue 3 Composition API + Vite 构建。
+基于 Vue 3 Composition API 的简洁AI助手前端项目。
 
 ## 📋 项目简介
 
-这是一个仿照腾讯元宝官网设计的AI聊天助手前端项目，采用 Vue 3 的 Composition API 开发，代码结构清晰，遵循 Clean Code 原则。
+这是一个轻量级的AI助手前端项目，采用 Vue 3 Composition API 开发，代码简洁清晰，易于定制和扩展。
 
 ## 🛠️ 技术栈
 
-| 技术 | 版本 | 说明 |
-|------|------|------|
-| **Vue** | 3.4.15 | 渐进式 JavaScript 框架，使用 Composition API |
-| **Vite** | 5.0.8 | 新一代前端构建工具，快速开发体验 |
-| **PostCSS** | 8.4.32 | CSS 后处理器 |
-| **Tailwind CSS** | 3.4.0 | 实用优先的 CSS 框架（已配置但未使用） |
-| **ESLint** | 8.55.0 | 代码质量检查工具 |
+- **Vue 3** (3.4.15) - Composition API
+- **Vite** (5.0.8) - 构建工具
 
 ## 📁 项目结构
 
 ```
 site/
-├── public/                          # 静态资源目录
-│   └── yuanbao_files/              # 元宝静态资源（220个文件）
-│       ├── *.css                   # 样式文件（172个）
-│       ├── *.js                    # JavaScript文件（36个）
-│       └── *.png, *.webp          # 图片资源（6个）
-│
-├── src/                            # 源代码目录
-│   ├── components/                 # Vue 组件目录
-│   │   ├── Sidebar.vue            # 左侧导航栏组件
-│   │   ├── Header.vue             # 顶部栏组件（模型选择器、下载按钮）
-│   │   ├── ChatArea.vue           # 聊天区域组件（消息列表、欢迎界面）
-│   │   ├── InputArea.vue          # 输入区域组件（输入框、工具栏、发送按钮）
-│   │   ├── ModelSelector.vue      # 模型选择器组件（下拉菜单）
-│   │   ├── SuggestionCards.vue    # 建议卡片组件（示例问题卡片）
-│   │   └── DragOverlay.vue       # 拖拽上传覆盖层组件
-│   │
-│   ├── composables/                # Vue Composables（组合式函数）
-│   │   ├── useClickOutside.js     # 点击外部区域检测 Hook
-│   │   └── useDragAndDrop.js      # 拖拽上传功能 Hook
-│   │
-│   ├── constants/                  # 常量定义
-│   │   └── index.js               # 应用常量（模型配置、颜色、尺寸、建议卡片等）
-│   │
-│   ├── utils/                      # 工具函数目录（当前为空）
-│   │
-│   ├── App.vue                     # 根组件（主应用组件）
-│   ├── main.js                     # 应用入口文件
-│   └── index.css                   # 全局样式文件
-│
-├── .github/                        # GitHub 配置目录
-│   └── workflows/                  # GitHub Actions 工作流
-│       └── deploy.yml              # 自动部署配置
-│
-├── dist/                           # 构建输出目录（自动生成，已加入.gitignore）
-│   ├── assets/                     # 构建后的资源文件
-│   ├── yuanbao_files/              # 复制的静态资源
-│   └── index.html                  # 构建后的 HTML
-│
-├── index.html                      # HTML 入口文件（Vite 模板）
-├── vite.config.js                  # Vite 配置文件
-├── package.json                    # 项目依赖配置
-├── tailwind.config.js              # Tailwind CSS 配置（已配置但未使用）
-├── postcss.config.js               # PostCSS 配置
-├── CNAME                           # GitHub Pages 自定义域名配置
-└── README.md                       # 项目说明文档
+├── src/
+│   ├── components/          # Vue组件
+│   │   ├── Sidebar.vue     # 侧边栏
+│   │   ├── Header.vue      # 顶部栏
+│   │   ├── ChatArea.vue    # 聊天区域
+│   │   ├── InputArea.vue   # 输入区域
+│   │   ├── ModelSelector.vue  # 模型选择器
+│   │   ├── SuggestionCards.vue # 建议卡片
+│   │   └── DragOverlay.vue  # 拖拽覆盖层
+│   ├── composables/        # 组合式函数
+│   │   ├── useClickOutside.js
+│   │   └── useDragAndDrop.js
+│   ├── constants/          # 常量定义
+│   │   └── index.js
+│   ├── App.vue             # 根组件
+│   ├── main.js             # 入口文件
+│   └── index.css           # 全局样式
+├── index.html              # HTML模板
+├── vite.config.js          # Vite配置
+└── package.json            # 项目配置
 ```
 
-## 🎯 核心组件说明
-
-### 1. App.vue（根组件）
-- **职责**：应用主入口，管理全局状态
-- **功能**：
-  - 管理聊天消息、输入值、模型选择等状态
-  - 协调各个子组件
-  - 处理发送消息和示例点击事件
-
-### 2. Sidebar.vue（侧边栏）
-- **职责**：左侧导航栏
-- **功能**：
-  - 显示导航项（元宝、灵感图库、全部应用、全部收藏）
-  - 显示分组和聊天历史
-  - 搜索功能
-  - 用户信息和下载中心入口
-
-### 3. Header.vue（顶部栏）
-- **职责**：顶部操作栏
-- **功能**：
-  - 模型选择器（Hunyuan / DeepSeek）
-  - 安装电脑版按钮
-
-### 4. ChatArea.vue（聊天区域）
-- **职责**：主内容显示区域
-- **功能**：
-  - 显示欢迎界面（未开始聊天时）
-  - 显示聊天消息列表（聊天模式）
-  - 支持拖拽上传文件
-
-### 5. InputArea.vue（输入区域）
-- **职责**：底部输入框区域
-- **功能**：
-  - 文本输入框
-  - 工具栏（深度思考、自动搜索、工具）
-  - 发送按钮
-  - 文件上传按钮
-
-### 6. ModelSelector.vue（模型选择器）
-- **职责**：模型下拉选择器
-- **功能**：
-  - 显示当前选择的模型
-  - 下拉菜单选择模型
-  - 点击外部自动关闭
-
-### 7. SuggestionCards.vue（建议卡片）
-- **职责**：示例问题卡片
-- **功能**：
-  - 显示促销卡片
-  - 显示示例问题卡片（下载、国画创作、识图求知、好奇发现）
-  - 点击卡片快速开始对话
-
-### 8. DragOverlay.vue（拖拽覆盖层）
-- **职责**：拖拽上传提示
-- **功能**：
-  - 拖拽文件时显示提示
-  - 显示支持的文件格式
-
-## 🔧 Composables（组合式函数）
-
-### useClickOutside.js
-- **功能**：检测点击元素外部区域
-- **用途**：用于下拉菜单、弹窗等组件的关闭逻辑
-
-### useDragAndDrop.js
-- **功能**：处理文件拖拽上传
-- **用途**：管理拖拽状态和事件处理
-
-## 📦 常量管理
-
-`src/constants/index.js` 统一管理：
-- **MODELS**：模型枚举（Hunyuan、DeepSeek）
-- **MODEL_CONFIG**：模型配置信息
-- **COLORS**：颜色常量（主题色、背景色、文字色等）
-- **SIZES**：尺寸常量（侧边栏宽度、圆角、间距等）
-- **SUGGESTION_CARDS**：建议卡片配置
-- **NAV_ITEMS**：导航项配置
-- **SUPPORTED_FILE_TYPES**：支持的文件类型列表
-
 ## 🚀 快速开始
-
-### 环境要求
-
-- Node.js >= 16.0.0
-- npm >= 7.0.0
 
 ### 安装依赖
 
@@ -159,95 +45,29 @@ site/
 npm install
 ```
 
-### 开发模式
+### 开发
 
 ```bash
 npm run dev
 ```
 
-访问 `http://localhost:5173` 查看应用
+访问 `http://localhost:5173`
 
-### 构建生产版本
+### 构建
 
 ```bash
 npm run build
 ```
 
-构建产物输出到 `dist/` 目录
+## 💡 核心功能
 
-### 预览生产构建
+- ✅ 聊天界面（消息列表）
+- ✅ 模型选择
+- ✅ 示例问题卡片
+- ✅ 文件拖拽上传
+- ✅ 响应式布局
 
-```bash
-npm run preview
-```
-
-预览构建后的应用
-
-## 📤 部署
-
-### GitHub Pages 自动部署（推荐）
-
-项目已配置 GitHub Actions 自动部署：
-
-1. **启用 GitHub Pages**：
-   - 访问仓库 Settings > Pages
-   - Source 选择 "GitHub Actions"
-
-2. **推送代码**：
-   ```bash
-   git push origin main
-   ```
-
-3. **自动部署**：
-   - GitHub Actions 会自动构建并部署
-   - 访问 `https://你的用户名.github.io/仓库名`
-
-### 手动部署
-
-```bash
-# 构建项目
-npm run build
-
-# 使用 gh-pages 工具部署
-npm install -g gh-pages
-gh-pages -d dist
-```
-
-## 💡 功能特性
-
-- ✅ **欢迎界面**：显示元宝介绍和功能说明
-- ✅ **示例问题**：点击示例问题快速开始对话
-- ✅ **聊天功能**：支持发送消息和接收AI回复
-- ✅ **模型选择**：支持切换不同的AI模型（Hunyuan、DeepSeek）
-- ✅ **拖拽上传**：支持拖拽文件上传（功能已实现，API待接入）
-- ✅ **响应式布局**：适配桌面和移动设备
-
-## 🎨 代码特点
-
-- ✅ **Clean Code 原则**：遵循单一职责、组件拆分、逻辑分离
-- ✅ **Vue 3 Composition API**：使用最新的组合式API，代码更清晰
-- ✅ **组件化设计**：高内聚、低耦合，易于维护和扩展
-- ✅ **常量管理**：统一配置，避免硬编码
-- ✅ **类型安全**：通过常量枚举避免魔法字符串
-
-## 🔨 开发指南
-
-### 添加新组件
-
-1. 在 `src/components/` 创建新的 `.vue` 文件
-2. 在 `App.vue` 或父组件中导入并使用
-
-### 添加新的 Composable
-
-1. 在 `src/composables/` 创建新的 `.js` 文件
-2. 使用 Vue 3 的 `ref`、`reactive`、`computed` 等 API
-3. 导出可复用的逻辑
-
-### 修改常量
-
-编辑 `src/constants/index.js`，所有常量集中管理
-
-### 接入真实 API
+## 🔨 接入API
 
 修改 `src/App.vue` 中的 `handleSend` 函数：
 
@@ -258,10 +78,14 @@ const handleSend = async (text) => {
   isChatMode.value = true
   messages.value.push({ role: 'user', content: text })
   
-  // 调用真实 API
+  // 调用你的API
   const response = await fetch('/api/chat', {
     method: 'POST',
-    body: JSON.stringify({ message: text, model: selectedModel.value })
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ 
+      message: text, 
+      model: selectedModel.value 
+    })
   })
   const data = await response.json()
   
@@ -270,22 +94,13 @@ const handleSend = async (text) => {
 }
 ```
 
-## ⚠️ 注意事项
+## 📝 自定义
 
-- 当前版本使用模拟回复，实际项目中需要接入真实的AI API
-- 页面样式完全参考腾讯元宝官网设计
-- 使用 Vue 3 Composition API，推荐熟悉 Vue 3 的开发者维护
-- `tailwind.config.js` 已配置但未使用，如需使用 Tailwind CSS 可启用
-- `src/utils/` 目录当前为空，可根据需要添加工具函数
+- **修改模型**：编辑 `src/constants/index.js` 中的 `MODELS` 和 `MODEL_CONFIG`
+- **修改建议卡片**：编辑 `src/constants/index.js` 中的 `SUGGESTION_CARDS`
+- **修改导航**：编辑 `src/constants/index.js` 中的 `NAV_ITEMS`
+- **修改颜色**：编辑 `src/constants/index.js` 中的 `COLORS`
 
-## 📝 更新日志
+## 📄 License
 
-### v1.0.0
-- ✅ 从 React 迁移到 Vue 3
-- ✅ 使用 Composition API 重构代码
-- ✅ 组件化设计，遵循 Clean Code 原则
-- ✅ 实现基础聊天界面和交互功能
-
-## 📄 许可证
-
-MIT License
+MIT

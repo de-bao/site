@@ -45,17 +45,16 @@
 
     <!-- 导航项 -->
     <div class="sidebar-content">
-      <div
-        v-for="item in navItems"
-        :key="item.id"
-        :class="['nav-item', { active: item.active }]"
-        @mouseenter="!item.active && handleHover($event)"
-        @mouseleave="!item.active && handleLeave($event)"
-      >
-        <div v-if="item.id === 'yuanbao'" class="yuanbao-icon">元</div>
-        <span v-else class="nav-icon">{{ item.icon }}</span>
-        <span :class="['nav-label', { 'font-medium': item.active }]">{{ item.label }}</span>
-      </div>
+        <div
+          v-for="item in navItems"
+          :key="item.id"
+          :class="['nav-item', { active: item.active }]"
+          @mouseenter="!item.active && handleHover($event)"
+          @mouseleave="!item.active && handleLeave($event)"
+        >
+          <span class="nav-icon">{{ item.icon }}</span>
+          <span :class="['nav-label', { 'font-medium': item.active }]">{{ item.label }}</span>
+        </div>
 
       <!-- 分组 -->
       <div class="group-header">
@@ -197,18 +196,6 @@ const handleLeave = (e) => {
   margin-bottom: 16px;
 }
 
-.yuanbao-icon {
-  width: 16px;
-  height: 16px;
-  background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 10px;
-  font-weight: bold;
-}
 
 .nav-icon {
   font-size: 16px;

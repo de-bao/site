@@ -4,17 +4,17 @@
 
 // 模型配置
 export const MODELS = {
-  HUNYUAN: 'Hunyuan',
-  DEEPSEEK: 'DeepSeek'
+  MODEL1: 'Model1',
+  MODEL2: 'Model2'
 }
 
 export const MODEL_CONFIG = {
-  [MODELS.HUNYUAN]: {
-    name: 'Hunyuan',
+  [MODELS.MODEL1]: {
+    name: 'Model1',
     description: '全能处理，深度思考'
   },
-  [MODELS.DEEPSEEK]: {
-    name: 'DeepSeek',
+  [MODELS.MODEL2]: {
+    name: 'Model2',
     description: '适合深度思考'
   }
 }
@@ -60,42 +60,31 @@ export const SIZES = {
 // 建议卡片配置
 export const SUGGESTION_CARDS = [
   {
-    id: 'download',
-    title: '下载元宝电脑版',
-    subtitle: '快速启动，划词问答，多格式全能处理',
-    type: 'download',
-    image: '/yuanbao_files/NjZlZDhiNDQtM2Q2Ni00MmViLTgzZDQtM2RjM2RjZjFlZmVh.png',
-    prompt: '下载元宝电脑版'
+    id: 'example1',
+    title: '示例问题1',
+    subtitle: '这是一个示例问题',
+    prompt: '示例问题1'
   },
   {
-    id: 'painting',
-    title: '国画创作',
-    subtitle: '工笔荷花',
-    type: 'normal',
-    prompt: '国画创作'
+    id: 'example2',
+    title: '示例问题2',
+    subtitle: '这是另一个示例问题',
+    prompt: '示例问题2'
   },
   {
-    id: 'image',
-    title: '识图求知',
-    subtitle: '结合财报数据计算毛利率',
-    type: 'normal',
-    prompt: '识图求知'
-  },
-  {
-    id: 'discovery',
-    title: '好奇发现',
-    subtitle: '如果地球没有风',
-    type: 'normal',
-    prompt: '好奇发现'
+    id: 'example3',
+    title: '示例问题3',
+    subtitle: '更多示例问题',
+    prompt: '示例问题3'
   }
 ]
 
 // 导航项配置
 export const NAV_ITEMS = [
-  { id: 'yuanbao', label: '元宝', icon: '元', active: true },
-  { id: 'gallery', label: '灵感图库', icon: '🏞️' },
-  { id: 'apps', label: '全部应用', icon: '🗂️' },
-  { id: 'favorites', label: '全部收藏', icon: '⭐' }
+  { id: 'home', label: '首页', icon: '🏠', active: true },
+  { id: 'chat', label: '聊天', icon: '💬' },
+  { id: 'history', label: '历史', icon: '📜' },
+  { id: 'settings', label: '设置', icon: '⚙️' }
 ]
 
 // 文件类型支持

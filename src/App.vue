@@ -30,7 +30,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { MODELS, COLORS } from './constants'
+import { MODELS } from './constants'
 import { useDragAndDrop } from './composables/useDragAndDrop'
 import Sidebar from './components/Sidebar.vue'
 import Header from './components/Header.vue'
@@ -43,12 +43,12 @@ import DragOverlay from './components/DragOverlay.vue'
 const inputValue = ref('')
 const messages = ref([])
 const isChatMode = ref(false)
-const selectedModel = ref(MODELS.HUNYUAN)
+const selectedModel = ref(MODELS.MODEL1)
 
 // 拖拽上传
 const { isDragging, handlers: dragHandlers } = useDragAndDrop((files) => {
-  // TODO: 处理文件上传
   console.log('Files dropped:', files)
+  // TODO: 处理文件上传
 })
 
 // 事件处理函数
@@ -57,6 +57,12 @@ const handleSend = (text) => {
 
   isChatMode.value = true
   messages.value.push({ role: 'user', content: text })
+  
+  // TODO: 调用AI API获取回复
+  setTimeout(() => {
+    messages.value.push({ role: 'assistant', content: '这是AI的回复（待接入真实API）' })
+  }, 500)
+  
   inputValue.value = ''
 }
 
