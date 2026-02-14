@@ -6,11 +6,11 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
 
 // 模型映射：前端模型名 -> 后端模型名
-// 注意：如果不传model参数，后端会使用默认模型
+// 从环境变量读取，如果没有则使用默认值
 const MODEL_MAP = {
-  'Qwen': 'Qwen3-30B-A3B-Instruct-2507-FP8', // 与后端默认模型一致
-  'Kimi': 'Qwen3-30B-A3B-Instruct-2507-FP8', // 可以根据实际情况修改
-  'DeepSeek': 'Qwen3-30B-A3B-Instruct-2507-FP8' // 可以根据实际情况修改
+  'Qwen': import.meta.env.VITE_MODEL_QWEN || 'qwen-plus', // 阿里云百炼 Qwen模型
+  'Kimi': import.meta.env.VITE_MODEL_KIMI || 'qwen-max', // 阿里云百炼 高级Qwen模型
+  'DeepSeek': import.meta.env.VITE_MODEL_DEEPSEEK || 'deepseek-v3.2' // 阿里云百炼 DeepSeek模型
 }
 
 /**

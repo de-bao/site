@@ -76,14 +76,26 @@ npm run build
 
 ## 🔨 后端API接入
 
-### 配置API地址
+### 配置API地址和模型
 
 1. 创建 `.env` 文件（参考 `.env.example`）：
 ```bash
+# API配置
 VITE_API_BASE_URL=http://localhost:8000
+
+# 模型配置（对应阿里云百炼API的模型名）
+VITE_MODEL_QWEN=qwen-plus
+VITE_MODEL_KIMI=qwen-max
+VITE_MODEL_DEEPSEEK=deepseek-v3.2
 ```
 
-2. 如果后端运行在其他地址，修改 `.env` 中的 `VITE_API_BASE_URL`
+2. 配置说明：
+   - `VITE_API_BASE_URL`: 后端API地址
+   - `VITE_MODEL_QWEN`: Qwen模型名称（默认：qwen-plus）
+   - `VITE_MODEL_KIMI`: Kimi模型名称（默认：qwen-max）
+   - `VITE_MODEL_DEEPSEEK`: DeepSeek模型名称（默认：deepseek-v3.2）
+
+3. 如果不配置，将使用默认值（适合阿里云百炼API）
 
 ### 启动后端服务
 
