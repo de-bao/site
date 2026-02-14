@@ -98,9 +98,9 @@ VITE_MODEL_DEEPSEEK=deepseek-v3.2
    - `VITE_MODEL_DEEPSEEK`: DeepSeek模型名称（**必填**）
 
 3. **重要**：
-   - `.env` 文件不会被提交到仓库（已在 `.gitignore` 中）
+   - `.env` 文件会被提交到仓库（用于部署配置）
    - 如果缺少任何环境变量，应用启动时会抛出错误
-   - 可以复制 `.env.example` 文件并重命名为 `.env`，然后修改配置值
+   - 可以复制 `env.example` 文件并重命名为 `.env`，然后修改配置值
 
 ### 启动后端服务
 
