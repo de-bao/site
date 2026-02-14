@@ -27,6 +27,7 @@
 
       <!-- 聊天区域 -->
       <ChatArea
+        ref="chatAreaRef"
         :messages="currentChatMessages"
         :is-chat-mode="isChatMode"
         :is-loading="isLoading"
@@ -47,7 +48,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import { MODELS } from './constants'
 import { useDragAndDrop } from './composables/useDragAndDrop'
 import {
@@ -77,6 +78,7 @@ const inputValue = ref('')
 const selectedModel = ref(MODELS.QWEN)
 const sidebarCollapsed = ref(false)
 const isLoading = ref(false) // API请求加载状态
+const chatAreaRef = ref(null) // ChatArea组件引用
 
 // 聊天会话管理
 const chats = ref(new Map()) // Map<chatId, { id, name, messages, serverId? }>
@@ -299,6 +301,13 @@ const handleAttach = async (attachment) => {
       chat.name = title.slice(0, 20) || `新对话 ${chat.id}`
     }
     
+    // 滚动到顶部（等待DOM更新）
+    nextTick(() => {
+      if (chatAreaRef.value) {
+        chatAreaRef.value.scrollToTop()
+      }
+    })
+    
     // 发送消息
     await handleSendMessage(chat)
   }
@@ -391,6 +400,13 @@ const handleSend = async (text) => {
   
   // 清空输入框
   inputValue.value = ''
+  
+  // 滚动到顶部（等待DOM更新）
+  nextTick(() => {
+    if (chatAreaRef.value) {
+      chatAreaRef.value.scrollToTop()
+    }
+  })
   
   // 设置加载状态
   isLoading.value = true

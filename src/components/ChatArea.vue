@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="chatAreaRef"
     class="chat-area"
     @dragover="onDragOver"
     @dragleave="onDragLeave"
@@ -61,7 +62,9 @@
 </template>
 
 <script setup>
-defineProps({
+import { ref, watch, nextTick } from 'vue'
+
+const props = defineProps({
   messages: {
     type: Array,
     default: () => []
@@ -85,6 +88,37 @@ defineProps({
   onDrop: {
     type: Function,
     default: () => {}
+  }
+})
+
+const chatAreaRef = ref(null)
+
+// 滚动到顶部
+const scrollToTop = () => {
+  if (chatAreaRef.value) {
+    chatAreaRef.value.scrollTop = 0
+  }
+}
+
+// 暴露方法给父组件
+defineExpose({
+  scrollToTop
+})
+
+// 监听消息变化，自动滚动到顶部
+watch(() => props.messages, () => {
+  nextTick(() => {
+    scrollToTop()
+  })
+}, { deep: true })
+
+// 监听加载状态变化，加载完成后也滚动
+watch(() => props.isLoading, (newVal) => {
+  if (!newVal) {
+    // 加载完成后滚动
+    nextTick(() => {
+      scrollToTop()
+    })
   }
 })
 </script>
